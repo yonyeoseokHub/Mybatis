@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserMapper03">
+
+
+  	<insert	id="addUser" 	parameterType="user">
+		INSERT
+		INTO users(user_id,user_name,password,age,grade,reg_date)
+		VALUES(	#{userId},
+				#{userName},
+				#{password},
+				#{age},
+				#{grade},
+				SYSDATE)
+	</insert>
+	
+  	<update	id="updateUser" parameterType="user">	
+		UPDATE users
+		SET		user_name = #{userName},
+				password  = #{password},
+				age		  =	#{age},
+				grade	  = #{grade}
+		WHERE user_id = #{userId}
+	</update>
+
+  	<delete	id="removeUser" parameterType="string">	
+  		DELETE
+  		FROM users
+  		WHERE user_id = #{value}
+  	</delete>
+  	
+  	<select 	id="getUserList" 	resultType="mybatis.service.domain.User">
+		SELECT
+		user_id 		AS userId,
+		user_name 		AS userName,
+		password 		AS password,
+		age 			AS age,
+		grade			AS grade,
+		reg_date 		AS regDate
+		FROM users   											
+  	</select>
+  	
+</mapper>

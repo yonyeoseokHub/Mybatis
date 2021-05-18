@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserMapper04">
+
+
+  	<insert	id="addUser01" 	parameterType="user">
+		INSERT
+		INTO users(user_id,user_name,password,age,grade,reg_date)
+		VALUES(	#{userId,jdbcType=VARCHAR},
+				#{userName,jdbcType=VARCHAR},
+				#{password,jdbcType=VARCHAR},
+				#{age,jdbcType=INTEGER},
+				#{grade,jdbcType=NUMERIC},
+				#{regDate,jdbcType=DATE})
+	</insert>
+
+  	<insert	id="addUser02" 	parameterType="user">
+		INSERT
+		INTO users(user_id,user_name,password,age,grade,reg_date)
+		VALUES(	#{userId:VARCHAR},
+				#{userName:VARCHAR},
+				#{password:VARCHAR},
+				#{age:INTEGER},
+				#{grade:NUMERIC},
+				#{regDate:DATE})
+	</insert>
+	
+  	<insert	id="addUser03" 	parameterType="user">
+		INSERT
+		INTO users(user_id,user_name,password,age,grade,reg_date)
+		VALUES(	#{userId},
+				#{userName},
+				#{password},
+				#{age,jdbcType=INTEGER},
+				<if test="grade==0">null</if>
+				<if test="grade!=0">#{grade}</if>,
+				#{regDate,jdbcType=DATE})
+	</insert>	
+
+  	<insert	id="addUser04" 	parameterType="user">
+		INSERT
+		INTO users(user_id,user_name,password,age,grade,reg_date)
+		VALUES(	#{userId},
+				#{userName},
+				#{password},
+				#{age:INTEGER},
+				<if test="grade==0">null</if>
+				<if test="grade!=0">#{grade}</if>,
+				#{regDate:DATE})
+	</insert>
+
+  	<update	id="updateUser" parameterType="user">	
+		UPDATE users
+		SET		user_name = #{userName},
+				password  = #{password},
+				age		  =	#{age:INTEGER},
+				grade	  = <if test="grade==0">null</if>
+							<if test="grade!=0">#{grade}</if>
+		WHERE user_id = #{userId}
+	</update>
+  	
+</mapper>
